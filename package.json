@@ -1,0 +1,20 @@
+{
+  "name": "@rapidrest/claude-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Claude Code plugin for RapidREST projects",
+  "author": "RapidREST <rapidrests@gmail.com>",
+  "license": "MPL-2.0",
+  "repository": "rapidrest/claude-plugin",
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "validate": "claude plugin validate ."
+  },
+  "devDependencies": {
+    "@inquirer/prompts": "^8.6.0"
+  }
+}

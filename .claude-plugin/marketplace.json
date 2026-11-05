@@ -1,0 +1,15 @@
+{
+  "name": "rapidrest",
+  "description": "Official Claude Code plugins for the RapidREST framework.",
+  "owner": {
+    "name": "RapidREST",
+    "email": "rapidrests@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "rapidrest",
+      "source": "./",
+      "description": "Scaffold, run, test, upgrade and release RapidREST projects through the official RapidREST CLI."
+    }
+  ]
+}
