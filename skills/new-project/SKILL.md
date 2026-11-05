@@ -27,7 +27,7 @@ the defaults marked here for the rest, and say which defaults you used.
 | Description | `--description "<text>"` | one line derived from the request |
 | Author | `-a "<Name <email>>"` | `git config user.name` / `user.email` |
 | Package manager | `--pkg-manager npm\|yarn` | `npm` (or `yarn` if the user uses yarn elsewhere) |
-| Databases | `--db mongodb\|postgresql\|sqlite\|redis` (repeatable) | `mongodb` |
+| Databases | `--db mongodb\|postgresql\|sqlite\|redis` (repeatable), or `--no-db` for none (newer CLIs; on 3.0 and older, choosing none needs the prompt: `--answer "{space}{down}{down}{space}"` to untick the defaults) | `mongodb` |
 | Default routes | `--route acl\|admin\|metrics\|openapi\|push\|status` (repeatable) | `openapi`, `status` |
 | React frontend | `--react` / `--no-react` | `--no-react` |
 | Docker | `--docker` / `--no-docker` | `--docker` |
@@ -41,7 +41,7 @@ Notes:
   `--k8s`/`--no-k8s` explicitly.** They share one "additional features" prompt in the CLI.
   Passing any one of them skips that prompt, and every one you leave out falls back to its own
   default (Docker defaults to *on*).
-- A persistent database (`mongodb`, `postgresql`, or `sqlite`) is what enables the ACL datastore
+- A persistent database (`mongodb`, `| Databases | `--db mongodb|postgresql|sqlite|redis` (repeatable), or `--no-db` for none (CLI 3.1+; older CLIs can only choose none at the prompt) | `mongodb` |`, or `sqlite`) is what enables the ACL datastore
   and RBAC (`rbac.enabled`). With only `redis`, or no database, RBAC is off. Mention this if the
   user wants protected routes or models without a persistent database.
 - The `acl` default route needs a persistent database.

@@ -35,7 +35,9 @@ with no answer left, it stops the CLI and exits **3**, printing `[rr] UNANSWERED
 - `node "${CLAUDE_PLUGIN_ROOT}/scripts/rr.mjs" --which` prints which CLI install will be used and
   its version. Resolution order: `$RAPIDREST_CLI` (a path to a `bin/run.js` checkout, useful when
   developing the CLI itself), the project's `node_modules/@rapidrest/cli`, the global npm install,
-  `rapidrest` on PATH, and finally `npx -y @rapidrest/cli@latest`.
+  `rapidrest` on PATH, and finally `npx -y @rapidrest/cli@latest`. If `--which` reports a global
+  install of 2.1.0 or older, tell the user to update it (`npm i -g @rapidrest/cli@latest`): those
+  versions bundle broken templates and lack most flags.
 - When you're unsure which flags a command supports in the installed version, run it with `--help`
   through the wrapper before guessing.
 - Long-running commands (`dev`, `start`) never exit on their own. Run them with the Bash tool's
