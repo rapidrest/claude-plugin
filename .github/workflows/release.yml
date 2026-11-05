@@ -1,0 +1,65 @@
+name: Release
+
+# `yarn release <bump>` (rapidrest release) bumps package.json and .claude-plugin/plugin.json,
+# promotes RELEASE_NOTES.md's Unreleased section, then commits, tags v<version> and pushes. This
+# turns that tag into a GitHub release. Users receive the new version through the marketplace,
+# which reads the repository itself; the release is the human-readable record of it.
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+
+      - name: Enable corepack
+        run: npm install --global corepack && corepack enable
+
+      - name: Check the tag matches the plugin version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          plugin=$(node -p 'require("./.claude-plugin/plugin.json").version')
+          pkg=$(node -p 'require("./package.json").version')
+          if [ "$tag" != "$plugin" ] || [ "$tag" != "$pkg" ]; then
+            echo "::error::Tag v$tag doesn't match plugin.json ($plugin) and package.json ($pkg)."
+            exit 1
+          fi
+          git fetch --quiet origin main
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::Tag v$tag isn't on main."
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Test
+        run: yarn test
+
+      - name: Validate plugin
+        run: npx -y @anthropic-ai/claude-code@2.1.318 plugin validate . --strict
+
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          # This version's section of RELEASE_NOTES.md, between its heading and the next one.
+          awk -v heading="## v$version" '
+            $0 == heading { found = 1; next }
+            found && /^## / { exit }
+            found { print }
+          ' RELEASE_NOTES.md > notes.md
+          if [ ! -s notes.md ]; then echo "Version $version." > notes.md; fi
+          gh release create "$GITHUB_REF_NAME" --title "v$version" --notes-file notes.md --verify-tag

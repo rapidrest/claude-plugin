@@ -12,9 +12,12 @@
   },
   "scripts": {
     "test": "node --test \"test/**/*.test.mjs\"",
-    "validate": "claude plugin validate ."
+    "validate": "claude plugin validate . --strict",
+    "release": "rapidrest release"
   },
   "devDependencies": {
-    "@inquirer/prompts": "^8.6.0"
-  }
+    "@inquirer/prompts": "^8.6.0",
+    "@rapidrest/cli": "^3.2.0"
+  },
+  "packageManager": "yarn@4.18.1"
 }

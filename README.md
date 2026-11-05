@@ -80,18 +80,25 @@ Shared guidance for all skills is in [`references/cli.md`](./references/cli.md).
 ## Developing
 
 ```sh
-yarn install       # dev dependency only: @inquirer/prompts, for the wrapper tests
+yarn install       # dev dependencies: @inquirer/prompts for the wrapper tests, @rapidrest/cli for releases
 yarn test          # wrapper behaviour + manifest/skill structure checks
-claude plugin validate .
+yarn validate      # claude plugin validate . --strict
 claude --plugin-dir .   # try the plugin locally; /reload-plugins picks up edits
 ```
 
 To point the skills at a local CLI checkout instead of a published one, set `RAPIDREST_CLI` to
 its `bin/run.js` (after `yarn build` in that checkout).
 
-When you change a skill, keep its documented prompt order in sync with the CLI's source. Keep
-`version` in `.claude-plugin/plugin.json` equal to the one in `package.json` (a test enforces
-this).
+When you change a skill, keep its documented prompt order in sync with the CLI's source. `version` in
+`.claude-plugin/plugin.json` must equal the one in `package.json` (a test enforces this).
+
+## Releasing
+
+Add what changed under `## Unreleased` in `RELEASE_NOTES.md`, then run `yarn release <patch|minor|major>`.
+That is `rapidrest release`, as in the other RapidREST repos: it bumps `package.json` and `.claude-plugin/plugin.json`,
+promotes the release notes, updates `CHANGELOG.md`, then commits, tags `v<version>` and pushes. The Release workflow
+checks the tag and creates the GitHub release. Installed copies of the plugin only update when the version changes, so
+release every change you want users to get.
 
 ---
 

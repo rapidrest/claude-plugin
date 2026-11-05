@@ -1,0 +1,28 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: node:lts-trixie-slim
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Enable corepack
+        run: npm install --global corepack && corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      # The rr.mjs wrapper against real interactive prompts, plus the manifest and skill checks.
+      - name: Test
+        run: yarn test
+
+      # Checks plugin.json and marketplace.json the way Claude Code loads them. Pinned, so a new
+      # validator release can't fail a build on its own.
+      - name: Validate plugin
+        run: npx -y @anthropic-ai/claude-code@2.1.318 plugin validate . --strict
