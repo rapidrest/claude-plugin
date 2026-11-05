@@ -68,10 +68,18 @@ downloads the newest compatible **templates release** (GitHub releases of `rapid
   async test bodies trip `typescript/no-empty-function`. After generating a job, fix the import and
   fill in the test bodies (that's the follow-up anyway). Mention to the user that this is a
   template bug fixed in newer releases.
-- **Mixed datastores: a route test hangs in `beforeAll`** when the route's model is on a SQL
-  datastore but the project also has MongoDB (e.g. the `acl` datastore). The generated test only
-  starts the in-memory MongoDB when the route's own model uses it. Start one in the test as the
-  MongoDB routes' tests do (`MongoMemoryServer` on port 9999), and tell the user.
+- **Generated route tests that fail out of the box** (templates older than 1.2; the project's
+  `package.json` records its version under `rapidrest.templates`). These are template bugs:
+  suggest `/rapidrest:upgrade`, or fix the test by hand and tell the user.
+  - The test hangs in `beforeAll` when the route has no model in a MongoDB project, or its model
+    is on SQL while the `acl` datastore is MongoDB. It only starts the in-memory MongoDB
+    (`MongoMemoryServer` on port 9999) when the route's own model uses MongoDB. Start it whenever
+    the project has a MongoDB datastore, and read ACLs through `getMongoRepository` when `acl` is
+    MongoDB.
+  - `findById` fails with 403: the request is anonymous, and a `.*` ACL record only matches an
+    authenticated user. Send `userToken` with it.
+  - A model-less route's "authenticated hello" test expects `Hello World!`. The route answers an
+    authenticated user with `Hello <uid>!`.
 - **`@rapidrest/cli` 2.1.0 as published on npm has a packaging bug.** Its server template is
   missing `src/` (`config.ts`, `server.ts`) and `tsconfig.json`, so `generate server` produces a
   project that can't build, and later `generate model`/`route` fail with `Patch target file not
