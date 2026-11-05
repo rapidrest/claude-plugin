@@ -616,13 +616,13 @@ __metadata:
   resolution: "@rapidrest/claude-plugin@workspace:."
   dependencies:
     "@inquirer/prompts": "npm:^8.6.0"
-    "@rapidrest/cli": "npm:^3.2.0"
+    "@rapidrest/cli": "npm:^3.2.1"
   languageName: unknown
   linkType: soft
 
-"@rapidrest/cli@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "@rapidrest/cli@npm:3.2.0"
+"@rapidrest/cli@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "@rapidrest/cli@npm:3.2.1"
   dependencies:
     "@inquirer/prompts": "npm:^8.6.0"
     "@oclif/core": "npm:^4"
@@ -643,7 +643,7 @@ __metadata:
   bin:
     rapidrest: bin/run.js
     rr: bin/run.js
-  checksum: 10c0/012847a41289960f95f50b7919c61e2a1d4146c2ce3649f4e34b303fb1cb6715f2ecd18967ba43d3c510a75781d95a49bc34b3bacca6fa141557e19ed8d768c5
+  checksum: 10c0/d5e7c7d3081a756fb8a150aa032cf12042419922a4145d6c0c8c0d4a890456a17ab8f7095aa9893d6a106efc14bbb5dc2d578806ee77f1145ee1f7bc0203678a
   languageName: node
   linkType: hard
 
