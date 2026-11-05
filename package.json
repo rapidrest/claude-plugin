@@ -1,6 +1,6 @@
 {
   "name": "@rapidrest/claude-plugin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Claude Code plugin for RapidREST projects",
   "author": "RapidREST <rapidrests@gmail.com>",

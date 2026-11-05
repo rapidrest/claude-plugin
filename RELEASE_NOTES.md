@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.2.0
+
 Initial release of the RapidREST Claude Code plugin.
 
 - Skills covering every RapidREST CLI command: `new-project`, `model`, `route`, `job`, `react`, `auth`, `deploy`, `serve`, `test`, `upgrade`, `deps`, `release`

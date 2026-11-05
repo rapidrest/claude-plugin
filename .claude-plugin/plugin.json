@@ -1,7 +1,7 @@
 {
   "name": "rapidrest",
   "displayName": "RapidREST",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Skills for building RapidREST projects with Claude Code: scaffold servers, models, routes, jobs, React apps, auth and deployment config, run and test projects, and keep them upgraded — all driven through the official RapidREST CLI.",
   "author": {
     "name": "Jean-Philippe Steinmetz",
@@ -10,5 +10,13 @@
   "homepage": "https://rapidrest.dev",
   "repository": "https://github.com/rapidrest/claude-plugin",
   "license": "MPL-2.0",
-  "keywords": ["rapidrest", "rest", "api", "nodejs", "typescript", "scaffolding", "cli"]
+  "keywords": [
+    "rapidrest",
+    "rest",
+    "api",
+    "nodejs",
+    "typescript",
+    "scaffolding",
+    "cli"
+  ]
 }
